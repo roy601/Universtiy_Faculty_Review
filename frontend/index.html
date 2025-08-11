@@ -6,30 +6,45 @@
     <title>Faculty Reviews & Information System</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Faculty Hub</span>
+                <div class="brand-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span class="brand-text">Faculty Hub</span>
             </div>
             <div class="nav-menu">
                 <button class="nav-btn" onclick="showSection('dashboard')">
-                    <i class="fas fa-home"></i> Dashboard
+                    <i class="fas fa-home"></i> 
+                    <span>Dashboard</span>
                 </button>
                 <button class="nav-btn" onclick="showSection('faculty')">
-                    <i class="fas fa-users"></i> Faculty
+                    <i class="fas fa-users"></i> 
+                    <span>Faculty</span>
                 </button>
                 <button class="nav-btn" onclick="showSection('reviews')">
-                    <i class="fas fa-star"></i> Reviews
+                    <i class="fas fa-star"></i> 
+                    <span>Reviews</span>
                 </button>
                 <button class="nav-btn admin-only" onclick="showSection('pending-reviews')">
-                    <i class="fas fa-clock"></i> Pending Reviews
+                    <i class="fas fa-clock"></i> 
+                    <span>Pending</span>
                 </button>
                 <button class="nav-btn" onclick="showSection('leaderboard')">
-                    <i class="fas fa-trophy"></i> Leaderboard
+                    <i class="fas fa-trophy"></i> 
+                    <span>Leaderboard</span>
                 </button>
                 <div class="role-selector">
                     <select id="roleSelect" onchange="changeRole()">
@@ -45,40 +60,60 @@
     <section id="dashboard" class="section active">
         <div class="container">
             <div class="welcome-header">
-                <h1>Welcome to Faculty Hub</h1>
-                <p>Your comprehensive platform for faculty information and reviews</p>
+                <h1 class="hero-title">Welcome to Faculty Hub</h1>
+                <p class="hero-subtitle">Your comprehensive platform for faculty information and reviews</p>
             </div>
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <i class="fas fa-users"></i>
-                    <h3 id="totalFaculty">0</h3>
-                    <p>Total Faculty</p>
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalFaculty">0</h3>
+                        <p>Total Faculty</p>
+                    </div>
                 </div>
                 <div class="stat-card">
-                    <i class="fas fa-star"></i>
-                    <h3 id="totalReviews">0</h3>
-                    <p>Approved Reviews</p>
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalReviews">0</h3>
+                        <p>Approved Reviews</p>
+                    </div>
                 </div>
                 <div class="stat-card admin-only">
-                    <i class="fas fa-clock"></i>
-                    <h3 id="pendingReviews">0</h3>
-                    <p>Pending Reviews</p>
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="pendingReviews">0</h3>
+                        <p>Pending Reviews</p>
+                    </div>
                 </div>
                 <div class="stat-card">
-                    <i class="fas fa-book"></i>
-                    <h3 id="totalCourses">0</h3>
-                    <p>Courses Covered</p>
+                    <div class="stat-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalCourses">0</h3>
+                        <p>Courses Covered</p>
+                    </div>
                 </div>
                 <div class="stat-card">
-                    <i class="fas fa-thumbs-up"></i>
-                    <h3 id="totalVotes">0</h3>
-                    <p>Total Votes</p>
+                    <div class="stat-icon">
+                        <i class="fas fa-thumbs-up"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalVotes">0</h3>
+                        <p>Total Votes</p>
+                    </div>
                 </div>
             </div>
 
             <div class="recent-activity">
-                <h2>Recent Activity</h2>
+                <h2 class="section-title">Recent Activity</h2>
                 <div id="recentActivity" class="activity-list">
                     <!-- Recent activities will be populated here -->
                 </div>
@@ -90,7 +125,7 @@
     <section id="faculty" class="section">
         <div class="container">
             <div class="section-header">
-                <h1>Faculty Management</h1>
+                <h1 class="section-title">Faculty Management</h1>
                 <button id="addFacultyBtn" class="btn-primary admin-only" onclick="openFacultyModal()">
                     <i class="fas fa-plus"></i> Add Faculty
                 </button>
@@ -139,7 +174,7 @@
     <section id="reviews" class="section">
         <div class="container">
             <div class="section-header">
-                <h1>Course Reviews</h1>
+                <h1 class="section-title">Course Reviews</h1>
                 <button class="btn-primary" onclick="openReviewModal()">
                     <i class="fas fa-plus"></i> Add Review
                 </button>
@@ -166,8 +201,8 @@
     <section id="pending-reviews" class="section">
         <div class="container">
             <div class="section-header">
-                <h1>Pending Reviews</h1>
-                <p>Review and approve submitted reviews</p>
+                <h1 class="section-title">Pending Reviews</h1>
+                <p class="section-subtitle">Review and approve submitted reviews</p>
             </div>
 
             <!-- Pending Reviews List -->
@@ -181,7 +216,7 @@
     <section id="leaderboard" class="section">
         <div class="container">
             <div class="section-header">
-                <h1>Faculty Leaderboard</h1>
+                <h1 class="section-title">Faculty Leaderboard</h1>
                 <div class="leaderboard-controls">
                     <select id="leaderboardType" onchange="updateLeaderboard()">
                         <option value="rating">Top Rated</option>
@@ -305,7 +340,7 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                         <span>Rate this faculty's <strong>Teaching</strong> performance</span>
                     </div>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">Evaluate lecture quality, explanation clarity, classroom engagement, and teaching methodology.</p>
+                    <p class="rating-description">Evaluate lecture quality, explanation clarity, classroom engagement, and teaching methodology.</p>
                     <div class="rating-options">
                         <label class="rating-option">
                             <input type="radio" name="teachingRating" value="3">
@@ -329,7 +364,7 @@
                         <i class="fas fa-pen-fancy"></i>
                         <span>Rate this faculty's <strong>Marking</strong> performance</span>
                     </div>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">Evaluate marking fairness, feedback quality, grading consistency, and response time.</p>
+                    <p class="rating-description">Evaluate marking fairness, feedback quality, grading consistency, and response time.</p>
                     <div class="rating-options">
                         <label class="rating-option">
                             <input type="radio" name="markingRating" value="3">
