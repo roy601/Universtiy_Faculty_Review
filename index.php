@@ -1,0 +1,77 @@
+
+
+
+
+<?php 
+session_start();
+if (!isset($_SESSION['username']) && !isset($_SESSION['id'])) { 
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Hub - Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="animated-bg">
+      <div class="gradient-orb orb-1"></div>
+      <div class="gradient-orb orb-2"></div>
+      <div class="gradient-orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <div class="login-form">
+      <h1 class="hero-title">Faculty Hub</h1>
+      <p class="hero-subtitle">Login to continue</p>
+      
+      <form action="php/check-login.php" method="post">
+        <?php if (isset($_GET['error'])) { ?>
+        <div class="alert" role="alert">
+          <?=htmlspecialchars($_GET['error'])?>
+        </div>
+        <?php } ?>
+        
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" 
+                 class="form-control" 
+                 name="username" 
+                 id="username"
+                 required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" 
+                 name="password" 
+                 class="form-control" 
+                 id="password"
+                 required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Select User Type:</label>
+          <select class="form-select"
+                  name="role" 
+                  aria-label="User role selection">
+            <option selected value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="btn-primary">LOGIN</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+<?php 
+} else {
+  header("Location: dashboard.php");
+  exit();
+}
+?>
