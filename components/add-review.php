@@ -382,6 +382,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 <?php $conn->close(); ?>
-
-
-

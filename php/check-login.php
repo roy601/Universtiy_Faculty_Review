@@ -1,51 +1,49 @@
-<?php  
+<?php
 session_start();
-include '../DBconnect.php';
+include "../DBconnect.php";
 
-
-if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['role'])) {
-
-	function test_input($data) {
-	  $data = trim($data);
-	  $data = stripslashes($data);
-	  $data = htmlspecialchars($data);
-	  return $data;
-	}
-
-	$username = test_input($_POST['username']);
-	$password = test_input($_POST['password']);
-	$role = test_input($_POST['role']);
-
-	if (empty($username)) {
-		header("Location: ../index.php?error=User Name is Required");
-	}else if (empty($password)) {
-		header("Location: ../index.php?error=Password is Required");
-	}else {
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username']);
+    $password = $_POST['password']; // Don't trim passwords!
+    $role = $_POST['role'];
+    
+    if (empty($username) || empty($password) || empty($role)) {
+        header("Location: ../index.php?error=All fields are required");
+        exit();
+    }
+    
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND role = ?");
+    $stmt->bind_param("ss", $username, $role);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
         
-        $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        $result = mysqli_query($conn, $sql);
-
-        if (mysqli_num_rows($result) === 1) {
-        	// the user name must be unique
-        	$row = mysqli_fetch_assoc($result);
-        	if ($row['password'] === $password && $row['role'] == $role) {
-        		$_SESSION['name'] = $row['name'];
-        		$_SESSION['id'] = $row['id'];
-        		$_SESSION['role'] = $row['role'];
-        		$_SESSION['username'] = $row['username'];
-
-        		header("Location: ../dashboard.php");
-
-        	}else {
-        		header("Location: ../index.php?error=Incorect User name or password");
-        	}
-        }else {
-        	header("Location: ../index.php?error=Incorect User name or password");
+        // Compare plain text passwords (INSECURE)
+        if ($password === $user['password']) {
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['name'] = $user['name'];
+            $_SESSION['role'] = $user['role'];
+            
+            // Redirect based on role
+            if ($user['role'] === 'admin') {
+                header("Location: ../dashboard_admin.php");
+            } else {
+                header("Location: ../dashboard_user.php");
+            }
+            exit();
+        } else {
+            header("Location: ../index.php?error=Incorrect password");
+            exit();
         }
-
-	}
-	
-}else {
-	header("Location: ../index.php");
+    } else {
+        header("Location: ../index.php?error=User not found or incorrect role selected");
+        exit();
+    }
+} else {
+    header("Location: ../index.php");
+    exit();
 }
+?>

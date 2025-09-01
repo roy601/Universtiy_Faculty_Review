@@ -38,6 +38,16 @@ if ($column_check->num_rows > 0) {
     // Column doesn't exist, order by id instead
     $members_res = $conn->query("SELECT * FROM users ORDER BY id DESC");
 }
+
+// Get current user's profile picture
+$profile_picture = null;
+$stmt = $conn->prepare("SELECT profile_picture FROM users WHERE id = ?");
+$stmt->bind_param("i", $_SESSION['id']);
+$stmt->execute();
+$result = $stmt->get_result();
+if ($row = $result->fetch_assoc()) {
+    $profile_picture = $row['profile_picture'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,17 +78,21 @@ if ($column_check->num_rows > 0) {
                     <i class="fas fa-home"></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="components/faculty.php" class="nav-btn">
+                <a href="components/faculty_management.php" class="nav-btn">
                     <i class="fas fa-users"></i>
                     <span>Faculty</span>
                 </a>
-                <a href="reviews.php" class="nav-btn">
+                <a href="components/reviews.php" class="nav-btn">
                     <i class="fas fa-star"></i>
                     <span>Reviews</span>
                 </a>
-                <a href="users.php" class="nav-btn">
+                <a href="components/users.php" class="nav-btn">
                     <i class="fas fa-user-cog"></i>
                     <span>Users</span>
+                </a>
+                <a href="components/reports.php" class="nav-btn">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Activity</span>
                 </a>
                 <a href="logout.php" class="nav-btn">
                     <i class="fas fa-sign-out-alt"></i>
@@ -138,7 +152,11 @@ if ($column_check->num_rows > 0) {
         <div class="flex-container">
             <div class="user-card">
                 <div class="user-avatar admin">
-                    <img src="img/admin-default.png" alt="admin image">
+                    <?php if ($profile_picture && file_exists('img/uploads/' . $profile_picture)): ?>
+                        <img src="img/uploads/<?php echo htmlspecialchars($profile_picture); ?>" alt="Profile Picture">
+                    <?php else: ?>
+                        <i class="fas fa-user"></i>
+                    <?php endif; ?>
                 </div>
                 <h3><?php echo htmlspecialchars($_SESSION['name']); ?></h3>
                 <p class="user-role"><?php echo ucfirst($_SESSION['role']); ?></p>
@@ -151,6 +169,11 @@ if ($column_check->num_rows > 0) {
                         <span class="stat-value"><?php echo $reviews_count; ?></span>
                         <span class="stat-label">Reviews</span>
                     </div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <a href="components/upload_profile.php" class="btn btn-primary">
+                        <i class="fas fa-camera"></i> Update Profile Picture
+                    </a>
                 </div>
                 <a href="logout.php" class="btn btn-dark">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -165,7 +188,7 @@ if ($column_check->num_rows > 0) {
                         </div>
                         <div class="card-content">
                             <div class="action-buttons">
-                                <a href="users.php" class="action-btn">
+                                <a href="components/users.php" class="action-btn">
                                     <i class="fas fa-user-plus"></i>
                                     <div class="action-content">
                                         <span>Manage Users</span>
@@ -173,7 +196,7 @@ if ($column_check->num_rows > 0) {
                                     </div>
                                 </a>
                                 
-                                <a href="reviews.php" class="action-btn">
+                                <a href="components/reviews.php" class="action-btn">
                                     <i class="fas fa-star"></i>
                                     <div class="action-content">
                                         <span>Review Moderation</span>
@@ -181,7 +204,7 @@ if ($column_check->num_rows > 0) {
                                     </div>
                                 </a>
                                 
-                                <a href="components/faculty.php" class="action-btn">
+                                <a href="components/faculty_management.php" class="action-btn">
                                     <i class="fas fa-chalkboard-teacher"></i>
                                     <div class="action-content">
                                         <span>Manage Faculty</span>
@@ -189,11 +212,11 @@ if ($column_check->num_rows > 0) {
                                     </div>
                                 </a>
                                 
-                                <a href="reports.php" class="action-btn">
+                                <a href="components/reports.php" class="action-btn">
                                     <i class="fas fa-chart-bar"></i>
                                     <div class="action-content">
-                                        <span>Reports</span>
-                                        <small>View system reports</small>
+                                        <span>Activity</span>
+                                        <small>View system activity</small>
                                     </div>
                                 </a>
                             </div>
