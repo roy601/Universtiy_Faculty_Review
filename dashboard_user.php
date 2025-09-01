@@ -201,7 +201,7 @@ function format_date($date) {
                                 <div class="no-activity">
                                     <i class="fas fa-inbox"></i>
                                     <p>No reviews yet</p>
-                                    <a href="components/faculty.php" class="btn btn-primary">
+                                    <a href="components/add-review.php" class="btn btn-primary">
                                         <i class="fas fa-plus"></i> Submit Your First Review
                                     </a>
                                 </div>

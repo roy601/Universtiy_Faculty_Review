@@ -37,48 +37,23 @@ $result = mysqli_query($conn, $query);
     <title>Browse Faculty - Faculty Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #1a1f2e;
-            --bg-tertiary: #252b3d;
-          
-            --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #1e40af 100%);
-            --gradient-secondary: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-            --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #8b5cf6 50%, #ec4899 100%);
-          
-            --neon-cyan: #00f5ff;
-            --neon-purple: #bf00ff;
-            --neon-pink: #ff0080;
-            --neon-gold: #ffd700;
-          
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --text-muted: #64748b;
-          
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-          
-            --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.3);
-            --glow-purple: 0 0 20px rgba(191, 0, 255, 0.3);
-            --glow-pink: 0 0 20px rgba(255, 0, 128, 0.3);
-        }
-        
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            position: relative;
             overflow-x: hidden;
             padding-top: 80px;
         }
-        
+
         .animated-bg {
             position: fixed;
             top: 0;
@@ -88,320 +63,294 @@ $result = mysqli_query($conn, $query);
             z-index: -1;
             overflow: hidden;
         }
-        
+
         .gradient-orb {
             position: absolute;
             border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.4;
-            animation: float 20s infinite ease-in-out;
+            filter: blur(80px);
+            opacity: 0.2;
         }
-        
+
         .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--neon-cyan) 0%, transparent 70%);
-            top: -200px;
-            left: -200px;
-            animation-delay: 0s;
-        }
-        
-        .orb-2 {
             width: 300px;
             height: 300px;
-            background: radial-gradient(circle, var(--neon-purple) 0%, transparent 70%);
-            top: 50%;
-            right: -150px;
-            animation-delay: -7s;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+            top: 10%;
+            left: 10%;
+            animation: float 15s infinite ease-in-out;
         }
-        
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%);
+            bottom: 10%;
+            right: 10%;
+            animation: float 18s infinite ease-in-out reverse;
+        }
+
         .orb-3 {
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, var(--neon-pink) 0%, transparent 70%);
-            bottom: -175px;
-            left: 30%;
-            animation-delay: -14s;
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%);
+            top: 50%;
+            right: 20%;
+            animation: float 12s infinite ease-in-out;
         }
-        
+
         @keyframes float {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translate(0, 0) rotate(0deg);
             }
-            33% {
-                transform: translate(100px, -100px) rotate(120deg);
+            25% {
+                transform: translate(20px, 30px) rotate(5deg);
             }
-            66% {
-                transform: translate(-50px, 50px) rotate(240deg);
+            50% {
+                transform: translate(0, 60px) rotate(0deg);
+            }
+            75% {
+                transform: translate(-20px, 30px) rotate(-5deg);
             }
         }
-        
+
+        /* Navigation */
         .navbar {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 1rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 0;
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: var(--glass-shadow);
         }
-        
+
         .nav-container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
-        
+
         .nav-brand {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
         }
-        
+
         .brand-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-accent);
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--glow-cyan);
-            animation: pulse-glow 3s infinite;
+            color: white;
+            font-size: 1.2rem;
         }
-        
-        .brand-icon i {
-            font-size: 1.5rem;
+
+        .brand-text {
+            font-size: 1.4rem;
+            font-weight: 700;
             color: white;
         }
-        
-        .brand-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        @keyframes pulse-glow {
-            0%,
-            100% {
-                box-shadow: var(--glow-cyan);
-            }
-            50% {
-                box-shadow: var(--glow-purple);
-            }
-        }
-        
+
         .nav-menu {
             display: flex;
-            align-items: center;
             gap: 0.5rem;
         }
-        
+
         .nav-btn {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--text-secondary);
-            padding: 0.75rem 1.25rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
-        
-        .nav-btn:hover,
-        .nav-btn.active {
-            background: var(--gradient-accent);
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: var(--glow-cyan);
         }
-        
+
+        .nav-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .nav-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Container */
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
-        
+
+        /* Section header */
         .section-header {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
-        
+
         .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white;
+            font-size: 2.2rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .section-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
         }
-        
+
+        /* Buttons */
         .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
             text-decoration: none;
-        }
-        
-        .btn-primary {
-            background: var(--gradient-accent);
-            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
             border: none;
-            box-shadow: var(--glow-cyan);
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
         }
-        
-        .btn-primary::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
         }
-        
-        .btn-primary:hover::before {
-            left: 100%;
-        }
-        
+
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--glow-purple);
-        }
-        
-        .btn-secondary {
-            background: var(--glass-bg);
-            color: var(--text-primary);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--bg-tertiary);
+            background: linear-gradient(45deg, #5a6fd8, #6a4190);
             transform: translateY(-2px);
         }
-        
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        /* Sort options */
         .sort-options {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 2rem;
             padding: 1.5rem;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 16px;
-            box-shadow: var(--glass-shadow);
         }
-        
+
         .sort-options span {
             font-weight: 600;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.9);
         }
-        
+
+        /* Faculty list */
         .faculty-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
         }
-        
+
         .faculty-item {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: var(--glass-shadow);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .faculty-item:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: var(--glow-cyan);
-            border-color: var(--neon-cyan);
-        }
-        
-        .faculty-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
             padding: 2rem;
+            transition: all 0.3s ease;
         }
-        
+
+        .faculty-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .faculty-info {
+            margin-bottom: 1.5rem;
+        }
+
         .faculty-info h3 {
+            color: white;
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            color: var(--text-primary);
         }
-        
+
         .designation, .department {
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-        
+
         .designation i, .department i {
-            color: var(--neon-cyan);
+            color: #667eea;
         }
-        
+
         .rating {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             margin: 1rem 0;
         }
-        
+
         .rating i {
-            color: var(--neon-gold);
+            color: #ffce54;
         }
-        
+
         .rating span {
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
         }
-        
+
+        .reviews-count {
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .reviews-count i {
+            color: #667eea;
+        }
+
         .faculty-actions {
             display: flex;
             gap: 1rem;
-            padding: 0 2rem 2rem;
         }
-        
+
         .faculty-actions .btn {
             flex: 1;
             justify-content: center;
         }
-        
+
+        /* Responsive styles */
         @media (max-width: 768px) {
             body {
-                padding-top: 120px;
+                padding-top: 100px;
             }
             
             .nav-container {
@@ -415,7 +364,7 @@ $result = mysqli_query($conn, $query);
             }
         
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
         
             .faculty-list {
@@ -426,24 +375,10 @@ $result = mysqli_query($conn, $query);
                 flex-direction: column;
                 align-items: flex-start;
             }
-        }
-        
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--gradient-accent);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--neon-cyan);
+            
+            .faculty-actions {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -462,14 +397,25 @@ $result = mysqli_query($conn, $query);
                 <div class="brand-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <div class="brand-text">Faculty Hub</div>
+                <div class="brand-text">FacultyHub</div>
             </div>
             <div class="nav-menu">
-                <a href="../dashboard.php" class="nav-btn"><i class="fas fa-home"></i> <span>Dashboard</span></a>
-                <a href="components/faculty.php" class="nav-btn active"><i class="fas fa-chalkboard-teacher"></i> <span>Faculty</span></a>
-                <a href="components/my-reviews.php" class="nav-btn"><i class="fas fa-star"></i> <span>Reviews</span></a>
-                <a href="components/faculty-detail.php" class="nav-btn"><i class="fas fa-user"></i> <span>Faculty</span></a>
-                <a href="../logout.php" class="nav-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+                <a href="../dashboard_user.php" class="nav-btn">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="faculty.php" class="nav-btn active">
+                    <i class="fas fa-users"></i>
+                    <span>Faculty</span>
+                </a>
+                <a href="my-reviews.php" class="nav-btn">
+                    <i class="fas fa-star"></i>
+                    <span>My Reviews</span>
+                </a>
+                <a href="../logout.php" class="nav-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -482,13 +428,13 @@ $result = mysqli_query($conn, $query);
         
         <div class="sort-options">
             <span>Sort by:</span>
-            <a href="components/faculty.php?sort=name" class="btn <?php echo $sort == 'name' ? 'btn-primary' : 'btn-secondary'; ?>">
+            <a href="faculty.php?sort=name" class="btn <?php echo $sort == 'name' ? 'btn-primary' : 'btn-secondary'; ?>">
                 <i class="fas fa-sort-alpha-down"></i> Name
             </a>
-            <a href="components/faculty.php?sort=rating" class="btn <?php echo $sort == 'rating' ? 'btn-primary' : 'btn-secondary'; ?>">
+            <a href="faculty.php?sort=rating" class="btn <?php echo $sort == 'rating' ? 'btn-primary' : 'btn-secondary'; ?>">
                 <i class="fas fa-star"></i> Rating
             </a>
-            <a href="components/faculty.php?sort=reviews" class="btn <?php echo $sort == 'reviews' ? 'btn-primary' : 'btn-secondary'; ?>">
+            <a href="faculty.php?sort=reviews" class="btn <?php echo $sort == 'reviews' ? 'btn-primary' : 'btn-secondary'; ?>">
                 <i class="fas fa-comments"></i> Reviews
             </a>
         </div>
@@ -520,10 +466,10 @@ $result = mysqli_query($conn, $query);
                     </div>
                     
                     <div class="faculty-actions">
-                        <a href="components/faculty-detail.php?id=<?php echo $faculty['id']; ?>" class="btn btn-primary">
+                        <a href="faculty-detail.php?id=<?php echo $faculty['id']; ?>" class="btn btn-primary">
                             <i class="fas fa-user-circle"></i> View Profile
                         </a>
-                        <a href="components/add-review.php?faculty_id=<?php echo $faculty['id']; ?>" class="btn btn-secondary">
+                        <a href="add-review.php?faculty_id=<?php echo $faculty['id']; ?>" class="btn btn-secondary">
                             <i class="fas fa-plus"></i> Add Review
                         </a>
                     </div>

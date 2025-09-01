@@ -68,7 +68,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['id'])) {
           <label class="form-label">Select User Type:</label>
           <div class="input-with-icon">
             <i class="fas fa-user-tag"></i>
-            <select class="form-select"
+            <select id="role-select" class="form-select"
                     name="role" 
                     aria-label="User role selection">
               <option selected value="user">User</option>

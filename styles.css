@@ -17,6 +17,11 @@ body {
   overflow: hidden;
 }
 
+#role-select {
+    color: rgb(162, 155, 155); /* Text color of the selected option */
+    background-color: #764ba2; /* Background color of the dropdown */
+  }
+
 .animated-bg {
   position: fixed;
   top: 0;
