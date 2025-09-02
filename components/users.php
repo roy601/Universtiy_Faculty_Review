@@ -166,7 +166,7 @@ $users_result = $conn->query("SELECT * FROM users ORDER BY created_at DESC");
                         <td><?php echo date('M j, Y', strtotime($user['created_at'])); ?></td>
                         <td>
                             <div class="action-buttons">
-                                <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
+                                
                                 <?php if ($user['id'] != $_SESSION['id']): ?>
                                     <a href="users.php?action=toggle_admin&id=<?php echo $user['id']; ?>" class="btn btn-sm btn-<?php echo $user['role'] === 'admin' ? 'warning' : 'success'; ?>">
                                         <?php echo $user['role'] === 'admin' ? 'Remove Admin' : 'Make Admin'; ?>

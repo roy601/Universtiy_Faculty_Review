@@ -57,6 +57,105 @@ if ($row = $result->fetch_assoc()) {
     <title>Faculty Hub - Admin Dashboard</title>
     <link rel="stylesheet" href="dashboardstyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Responsive action buttons */
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-buttons .btn {
+            display: flex;
+            align-items: center;
+            padding: 0.375rem 0.75rem;
+            white-space: nowrap;
+        }
+
+        .action-buttons .btn i {
+            margin-right: 0.25rem;
+        }
+
+        .btn-text {
+            display: inline;
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            
+            .action-buttons .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn-text {
+                display: none;
+            }
+            
+            .action-buttons .btn i {
+                margin-right: 0;
+            }
+            
+            .table-responsive {
+                overflow-x: auto;
+            }
+            
+            .members-section table th:nth-child(2),
+            .members-section table td:nth-child(2) {
+                min-width: 120px;
+            }
+        }
+        
+        /* Form styles */
+        .user-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
 </head>
 <body>
     <div class="animated-bg">
@@ -272,7 +371,7 @@ if ($row = $result->fetch_assoc()) {
                                 </div>
                                 
                                 <div class="card-footer">
-                                    <a href="reviews.php" class="btn btn-secondary">
+                                    <a href="components/reviews.php" class="btn btn-secondary">
                                         <i class="fas fa-list"></i> View All Reviews
                                     </a>
                                 </div>
@@ -284,7 +383,7 @@ if ($row = $result->fetch_assoc()) {
                 <div class="members-section">
                     <div class="section-header">
                         <h2><i class="fas fa-users"></i> System Members</h2>
-                        <a href="users.php" class="btn btn-sm btn-primary">View All</a>
+                        <a href="components/users.php" class="btn btn-sm btn-primary">View All</a>
                     </div>
                     
                     <?php if (mysqli_num_rows($members_res) > 0) { ?>
@@ -296,7 +395,7 @@ if ($row = $result->fetch_assoc()) {
                                     <th scope="col">Name</th>
                                     <th scope="col">User name</th>
                                     <th scope="col">Role</th>
-                                    <th scope="col">Actions</th>
+                                    <th scope="col" class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -315,8 +414,16 @@ if ($row = $result->fetch_assoc()) {
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="edit_user.php?id=<?php echo $rows['id']; ?>" class="btn btn-sm btn-primary">Edit</a>
-                                        <a href="delete_user.php?id=<?php echo $rows['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                                        <div class="action-buttons">
+                                            <a href="components/edit_user.php?id=<?php echo $rows['id']; ?>" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-edit"></i>
+                                                <span class="btn-text">Edit</span>
+                                            </a>
+                                            <a href="components/delete_user.php?id=<?php echo $rows['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">
+                                                <i class="fas fa-trash"></i>
+                                                <span class="btn-text">Delete</span>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php $i++; } ?>
