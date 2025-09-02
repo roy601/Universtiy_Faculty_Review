@@ -6,11 +6,6 @@ A PHP-based web application designed to manage and review university faculty dat
 
 - [Features](#features)  
 - [Repository Structure](#repository-structure)  
-- [Installation](#installation)  
-- [Usage](#usage)  
-- [Configuration](#configuration)  
-- [Contributing](#contributing)  
-- [License](#license)
 
 ## Features
 
