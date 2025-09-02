@@ -71,7 +71,8 @@ try {
 </head>
 <body>
 <div class="animated-bg"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div><div class="gradient-orb orb-3"></div></div>
-<nav class="navbar"><div class="nav-container"><div class="nav-brand"><div class="brand-icon"><i class="fas fa-graduation-cap"></i></div><div class="brand-text">FacultyHub</div></div><div class="nav-menu"><a href="../dashboard_user.php" class="nav-btn"><i class="fas fa-home"></i> Dashboard</a><a href="faculty.php" class="nav-btn"><i class="fas fa-users"></i> Faculty</a><a href="courses.php" class="nav-btn active"><i class="fas fa-book"></i> Courses</a><a href="my-course-reviews.php" class="nav-btn"><i class="fas fa-star"></i> My Course Reviews</a><a href="../logout.php" class="nav-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></nav>
+<?php include '../navbar.php'; ?>
+
 
 <div class="container">
   <div style="margin-bottom:12px;">

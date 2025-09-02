@@ -240,17 +240,8 @@ label { display:block; margin-bottom: .5rem; color: #fff; font-weight:600; }
     <div class="gradient-orb orb-3"></div>
 </div>
 
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-brand"><div class="brand-icon"><i class="fas fa-graduation-cap"></i></div><span class="brand-text">FacultyHub</span></div>
-        <div class="nav-menu">
-            <a href="../dashboard_user.php" class="nav-btn"><i class="fas fa-home"></i> <span>Dashboard</span></a>
-            <a href="faculty.php" class="nav-btn"><i class="fas fa-users"></i> <span>Faculty</span></a>
-            <a href="my-reviews.php" class="nav-btn"><i class="fas fa-star"></i> <span>My Reviews</span></a>
-            <a href="../logout.php" class="nav-btn"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
-        </div>
-    </div>
-</nav>
+<?php include '../navbar.php'; ?>
+
 
 <div class="review-container">
     <div class="review-card">

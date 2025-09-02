@@ -14,7 +14,7 @@ $stmt->bind_param("i",$user_id); $stmt->execute(); $res = $stmt->get_result();
 <style>.container{max-width:1000px;margin:28px auto;padding:0 18px}.review-item{background:rgba(255,255,255,0.03);padding:12px;border-radius:10px;margin-bottom:12px;color:#fff}.meta{display:flex;justify-content:space-between;align-items:center}</style>
 </head><body>
 <div class="animated-bg"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div><div class="gradient-orb orb-3"></div></div>
-<nav class="navbar"><div class="nav-container"><div class="nav-brand"><div class="brand-icon"><i class="fas fa-graduation-cap"></i></div><div class="brand-text">FacultyHub</div></div><div class="nav-menu"><a href="../dashboard_user.php" class="nav-btn"><i class="fas fa-home"></i> Dashboard</a><a href="courses.php" class="nav-btn"><i class="fas fa-book"></i> Courses</a><a href="my-course-reviews.php" class="nav-btn active"><i class="fas fa-star"></i> My Course Reviews</a><a href="../logout.php" class="nav-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></div></div></nav>
+<?php include '../navbar.php'; ?>
 
 <div class="container">
   <h1 style="color:#fff">My Course Reviews</h1>
@@ -48,3 +48,4 @@ document.addEventListener('DOMContentLoaded',function(){
 });
 </script>
 <?php $stmt->close(); $conn->close(); ?></body></html>
+
